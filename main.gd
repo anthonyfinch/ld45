@@ -14,6 +14,8 @@ func _ready():
 	end_zone = find_node("end_zone")
 	end_zone.connect("body_entered", self, "end_zone_activated")
 
+	game_state.connect("hit_enemy", self, "player_died")
+
 
 func _physics_process(delta):
 	if !game_state.paused:
