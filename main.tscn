@@ -70,3 +70,7 @@ texture = ExtResource( 4 )
 [node name="collision_shape" type="CollisionShape2D" parent="player"]
 visible = false
 shape = SubResource( 4 )
+
+[node name="camera" type="Camera2D" parent="player"]
+current = true
+editor_draw_drag_margin = true
