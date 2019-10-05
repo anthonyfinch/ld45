@@ -1,3 +1,17 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://edit-undo-font.tres" type="DynamicFont" id=1]
 
 [node name="main" type="Node2D"]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="Label" type="Label" parent="CenterContainer"]
+margin_left = 446.0
+margin_top = 266.0
+margin_right = 578.0
+margin_bottom = 333.0
+custom_fonts/font = ExtResource( 1 )
+text = "WIN!"

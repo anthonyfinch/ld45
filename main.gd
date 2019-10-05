@@ -1,5 +1,6 @@
 extends Node2D
 
+export var next_level_name = "level_1"
 export var floor_speed = 50
 
 var player
@@ -29,4 +30,5 @@ func end_zone_activated(body):
 	if (body.name == "player"):
 		var level_end_scene = load("res://level_end.tscn")
 		game_state.paused = true
+		game_state.next_level_name = next_level_name
 		get_tree().change_scene_to(level_end_scene)
