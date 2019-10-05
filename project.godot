@@ -16,8 +16,16 @@ _global_script_class_icons={
 [application]
 
 config/name="ld45"
-run/main_scene="res://main.tscn"
+run/main_scene="res://base_level.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+game_state="*res://game_state.gd"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [input]
 
@@ -45,6 +53,7 @@ throw={
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/2d/use_pixel_snap=true
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_clear_color=Color( 0, 0, 0, 1 )
