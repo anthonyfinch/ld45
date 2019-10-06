@@ -6,6 +6,8 @@ export var floor_speed = 50
 var player
 var floor_obj
 var end_zone
+var floor_timer
+var floor_active = false
 
 func _ready():
 	player = find_node("player")
@@ -16,10 +18,17 @@ func _ready():
 
 	game_state.connect("hit_enemy", self, "player_died")
 
+	floor_timer = find_node("floor_timer")
+	floor_timer.connect("timeout", self, "start_floor")
+
 
 func _physics_process(delta):
-	if !game_state.paused:
+	if (!game_state.paused and floor_active):
 		floor_obj.position.y = floor_obj.position.y - (floor_speed * delta)
+
+
+func start_floor():
+	floor_active = true
 
 
 func player_died():
