@@ -15,6 +15,7 @@ texture = ExtResource( 2 )
 hframes = 2
 
 [node name="collision_shape" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="camera" type="Camera2D" parent="."]

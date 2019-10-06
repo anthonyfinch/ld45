@@ -8,6 +8,7 @@ var floor_obj
 var end_zone
 var floor_timer
 var floor_active = false
+var animations
 
 func _ready():
 	player = find_node("player")
@@ -21,6 +22,9 @@ func _ready():
 	floor_timer = find_node("floor_timer")
 	floor_timer.connect("timeout", self, "start_floor")
 
+	animations = find_node("animations")
+	animations.connect("animation_finished", self, "animation_finished")
+
 
 func _physics_process(delta):
 	if (!game_state.paused and floor_active):
@@ -32,14 +36,21 @@ func start_floor():
 
 
 func player_died():
-	var intro_scene = load("res://intro.tscn")
 	game_state.paused = true
-	get_tree().change_scene_to(intro_scene)
-
+	animations.play("die")
 
 func end_zone_activated(body):
 	if (body.name == "player"):
-		var level_end_scene = load("res://level_end.tscn")
 		game_state.paused = true
+		animations.play("win")
+
+
+func animation_finished(anim):
+	if (anim == "die"):
+		var intro_scene = load("res://intro.tscn")
+		get_tree().change_scene_to(intro_scene)
+
+	if (anim == "win"):
+		var level_end_scene = load("res://level_end.tscn")
 		game_state.next_level_name = next_level_name
 		get_tree().change_scene_to(level_end_scene)
