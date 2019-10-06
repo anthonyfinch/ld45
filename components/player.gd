@@ -44,7 +44,7 @@ func _input(event):
 				calculate_collision_shape()
 				var falling_buddy = falling_buddy_scene.instance()
 				thrown_buddy.position.y = 0
-				falling_buddy.add_child(thrown_buddy)
+				falling_buddy.add_sprite(thrown_buddy)
 				falling_buddy.x_dir = last_x
 				emit_signal("thrown_buddy", falling_buddy, new_position)
 

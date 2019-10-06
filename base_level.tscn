@@ -81,6 +81,7 @@ position = Vector2( 688, 400 )
 
 [node name="buddy2" parent="buddies_container" instance=ExtResource( 5 )]
 position = Vector2( 655.069, 400 )
+frame = 0
 
 [node name="floor_timer" type="Timer" parent="."]
 wait_time = 3.0

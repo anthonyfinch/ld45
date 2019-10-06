@@ -11,6 +11,8 @@ var floor_active = false
 var animations
 var buddies
 
+var buddy_scene = preload("res://components/buddy.tscn")
+
 func _ready():
 	player = find_node("player")
 	player.connect("hit_floor", self, "player_died")
@@ -22,6 +24,7 @@ func _ready():
 	end_zone.connect("body_entered", self, "end_zone_activated")
 
 	game_state.connect("hit_enemy", self, "player_died")
+	game_state.connect("buddy_landed", self, "buddy_landed")
 
 	floor_timer = find_node("floor_timer")
 	floor_timer.connect("timeout", self, "start_floor")
@@ -40,6 +43,13 @@ func _physics_process(delta):
 func add_falling_buddy(buddy, position):
 	buddies.add_child(buddy)
 	buddy.global_position = position
+
+
+func buddy_landed(buddy, position, frame_no):
+	var landed_buddy = buddy_scene.instance()
+	buddies.add_child(landed_buddy)
+	landed_buddy.global_position = position
+	landed_buddy.set_frame(frame_no)
 
 
 func start_floor():
