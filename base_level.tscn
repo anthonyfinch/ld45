@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://main.gd" type="Script" id=1]
-[ext_resource path="res://tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://level.gd" type="Script" id=1]
+[ext_resource path="res://components/tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://components/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://components/buddy.tscn" type="PackedScene" id=5]
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 300, 50 )
 
 [node name="main" type="Node2D"]
@@ -33,7 +33,7 @@ __meta__ = {
 }
 
 [node name="end_zone_shape" type="CollisionShape2D" parent="end_zone"]
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="enemies" type="Node2D" parent="."]
 
