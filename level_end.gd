@@ -31,6 +31,8 @@ func _ready():
 
 		total.text = "Total Level Score: %s" % g_total
 
+		game_state.running_total += g_total
+
 
 func _input(event):
 	if event.is_pressed():
