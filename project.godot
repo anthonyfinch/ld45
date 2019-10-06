@@ -15,8 +15,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="ld45"
-run/main_scene="res://base_level.tscn"
+config/name="Jump Up Jump Up Get Out"
+run/main_scene="res://intro.tscn"
 config/icon="res://icon.png"
 
 [autoload]
