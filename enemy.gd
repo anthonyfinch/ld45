@@ -7,5 +7,4 @@ func _ready():
 
 func hit_player(body):
 	if (body.name == "player"):
-		print("hit player")
 		game_state.emit_signal("hit_enemy")

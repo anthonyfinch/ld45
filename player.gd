@@ -6,10 +6,18 @@ export var jump_gravity = 550
 export var fall_gravity = 900
 
 var y_vel = 0
+var height = 32
+var floor_normal = Vector2(0, -1)
+
+var buddies
+var collision_shape
 
 signal hit_floor
 
-var floor_normal = Vector2(0, -1)
+
+func _ready():
+	buddies = find_node("buddies")
+	collision_shape = find_node("collision_shape")
 
 func _input(event):
 	if !game_state.paused:
@@ -45,3 +53,13 @@ func _physics_process(delta):
 			var collision = get_slide_collision(i)
 			if (collision.collider.name == "floor"):
 				emit_signal("hit_floor")
+
+
+func add_buddy(sprite):
+	buddies.add_child(sprite)
+	var buddies_count = buddies.get_child_count()
+	sprite.position.x = 0
+	sprite.position.y = -1 * buddies_count * height
+
+	collision_shape.position.y = -1 * buddies_count * (height / 2)
+	collision_shape.shape.extents.y = (buddies_count + 1) * 16

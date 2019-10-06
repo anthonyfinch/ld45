@@ -1,13 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://tileset.tres" type="TileSet" id=2]
-[ext_resource path="res://player.gd" type="Script" id=3]
-[ext_resource path="res://char.png" type="Texture" id=4]
-[ext_resource path="res://enemy.tscn" type="PackedScene" id=5]
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 16, 16 )
+[ext_resource path="res://components/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://components/buddy.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 300, 50 )
@@ -21,23 +18,7 @@ cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 10, 0, 0, 22, 536870912, 0, 65546, 0, 0, 65558, 536870912, 0, 131082, 0, 0, 131094, 536870912, 0, 196618, 0, 0, 196630, 536870912, 0, 262154, 0, 0, 262166, 536870912, 0, 327690, 0, 0, 327702, 536870912, 0, 393226, 0, 0, 393238, 536870912, 0, 458762, 0, 0, 458768, 536870913, 0, 458769, 536870913, 0, 458770, 536870913, 0, 458774, 536870912, 0, 524298, 0, 0, 524310, 536870912, 0, 589834, 0, 0, 589846, 536870912, 0, 655370, 0, 0, 655371, 536870913, 0, 655372, 536870913, 0, 655373, 536870913, 0, 655374, 536870913, 0, 655382, 536870912, 0, 720906, 0, 0, 720918, 536870912, 0, 786442, 0, 0, 786454, 536870912, 0, 851978, 0, 0, 851987, 536870913, 0, 851988, 536870913, 0, 851989, 536870913, 0, 851990, 536870912, 0, 917514, 0, 0, 917526, 536870912, 0, 983050, 0, 0, 983053, 536870913, 0, 983054, 536870913, 0, 983062, 536870912, 0, 1048586, 0, 0, 1048598, 536870912, 0, 1114122, 0, 0, 1114134, 536870912, 0, 1179658, 0, 0, 1179659, 536870913, 0, 1179660, 536870913, 0, 1179661, 536870913, 0, 1179662, 536870913, 0, 1179663, 536870913, 0, 1179664, 536870913, 0, 1179665, 536870913, 0, 1179666, 536870913, 0, 1179667, 536870913, 0, 1179668, 536870913, 0, 1179669, 536870913, 0, 1179670, 536870912, 0 )
 
-[node name="player" type="KinematicBody2D" parent="."]
-position = Vector2( 593.595, 294.102 )
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="sprite" type="Sprite" parent="player"]
-texture = ExtResource( 4 )
-
-[node name="collision_shape" type="CollisionShape2D" parent="player"]
-visible = false
-shape = SubResource( 4 )
-
-[node name="camera" type="Camera2D" parent="player"]
-current = true
-editor_draw_drag_margin = true
+[node name="player" parent="." instance=ExtResource( 3 )]
 
 [node name="floor" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
@@ -56,5 +37,13 @@ shape = SubResource( 5 )
 
 [node name="enemies" type="Node2D" parent="."]
 
-[node name="enemy" parent="enemies" instance=ExtResource( 5 )]
+[node name="enemy" parent="enemies" instance=ExtResource( 4 )]
 position = Vector2( 368, 304 )
+
+[node name="buddies" type="Node2D" parent="."]
+
+[node name="buddy" parent="buddies" instance=ExtResource( 5 )]
+position = Vector2( 688, 400 )
+
+[node name="buddy2" parent="buddies" instance=ExtResource( 5 )]
+position = Vector2( 655.069, 400 )
