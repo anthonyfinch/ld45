@@ -105,7 +105,7 @@ func add_buddy(sprite):
 
 func calculate_collision_shape():
 	collision_shape.position.y = -1 * buddies_count() * (height / 2)
-	collision_shape.shape.extents.y = (buddies_count() + 1) * 16
+	collision_shape.shape.extents.y = (buddies_count() + 1) * (height / 2) - 2
 
 
 func shake():

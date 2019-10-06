@@ -1,7 +1,7 @@
 extends Node2D
 
 export var next_level_name = "level_1"
-export var floor_speed = 50
+export var floor_speed = 60
 
 var player
 var floor_obj
