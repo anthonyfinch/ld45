@@ -8,9 +8,14 @@ export var fall_gravity = 900
 var y_vel = 0
 var height = 32
 var floor_normal = Vector2(0, -1)
+var shake_amount = 5
+var shake_time_total = 1.5
+
+var shake_time = 0
 
 var buddies
 var collision_shape
+var camera
 
 signal hit_floor
 
@@ -18,6 +23,7 @@ signal hit_floor
 func _ready():
 	buddies = find_node("buddies")
 	collision_shape = find_node("collision_shape")
+	camera = find_node("camera")
 
 func _input(event):
 	if !game_state.paused:
@@ -54,6 +60,14 @@ func _physics_process(delta):
 			if (collision.collider.name == "floor"):
 				emit_signal("hit_floor")
 
+		if (shake_time > 0):
+			shake_time = shake_time - delta
+			var shake_vec = Vector2(
+				rand_range(-1.0, 1.0) * shake_amount,
+				rand_range(-1.0, 1.0) * shake_amount
+			)
+			camera.set_offset(shake_vec)
+
 
 func add_buddy(sprite):
 	buddies.add_child(sprite)
@@ -63,3 +77,7 @@ func add_buddy(sprite):
 
 	collision_shape.position.y = -1 * buddies_count * (height / 2)
 	collision_shape.shape.extents.y = (buddies_count + 1) * 16
+
+
+func shake():
+	shake_time = shake_time_total

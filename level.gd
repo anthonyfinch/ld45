@@ -32,6 +32,7 @@ func _physics_process(delta):
 
 
 func start_floor():
+	player.shake()
 	floor_active = true
 
 
