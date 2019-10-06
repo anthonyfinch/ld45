@@ -10,6 +10,7 @@ var height = 32
 var floor_normal = Vector2(0, -1)
 var shake_amount = 5
 var shake_time_total = 1.5
+var last_x = -1
 
 var shake_time = 0
 
@@ -17,7 +18,10 @@ var buddies
 var collision_shape
 var camera
 
+var falling_buddy_scene = preload("res://components/falling_buddy.tscn")
+
 signal hit_floor
+signal thrown_buddy(buddy, position)
 
 
 func _ready():
@@ -25,11 +29,25 @@ func _ready():
 	collision_shape = find_node("collision_shape")
 	camera = find_node("camera")
 
+
 func _input(event):
 	if !game_state.paused:
 		if event.is_action_pressed("jump"):
 			if is_on_floor():
 				y_vel = jump_speed
+
+		if event.is_action_pressed("throw"):
+			if buddies_count() > 0:
+				var thrown_buddy = buddies.get_child(buddies_count() - 1)
+				var new_position = thrown_buddy.global_position
+				buddies.remove_child(thrown_buddy)
+				calculate_collision_shape()
+				var falling_buddy = falling_buddy_scene.instance()
+				thrown_buddy.position.y = 0
+				falling_buddy.add_child(thrown_buddy)
+				falling_buddy.x_dir = last_x
+				emit_signal("thrown_buddy", falling_buddy, new_position)
+
 
 func _physics_process(delta):
 	if !game_state.paused:
@@ -53,6 +71,11 @@ func _physics_process(delta):
 
 		movement.y = -1 * y_vel
 
+		if (movement.x > 0):
+			last_x = 1
+		elif (movement.x < 0):
+			last_x = -1
+
 		move_and_slide(movement, floor_normal)
 
 		for i in get_slide_count():
@@ -69,14 +92,20 @@ func _physics_process(delta):
 			camera.set_offset(shake_vec)
 
 
+func buddies_count():
+	return buddies.get_child_count()
+
+
 func add_buddy(sprite):
 	buddies.add_child(sprite)
-	var buddies_count = buddies.get_child_count()
 	sprite.position.x = 0
-	sprite.position.y = -1 * buddies_count * height
+	sprite.position.y = -1 * buddies_count() * height
+	calculate_collision_shape()
 
-	collision_shape.position.y = -1 * buddies_count * (height / 2)
-	collision_shape.shape.extents.y = (buddies_count + 1) * 16
+
+func calculate_collision_shape():
+	collision_shape.position.y = -1 * buddies_count() * (height / 2)
+	collision_shape.shape.extents.y = (buddies_count() + 1) * 16
 
 
 func shake():

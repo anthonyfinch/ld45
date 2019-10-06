@@ -9,11 +9,15 @@ var end_zone
 var floor_timer
 var floor_active = false
 var animations
+var buddies
 
 func _ready():
 	player = find_node("player")
 	player.connect("hit_floor", self, "player_died")
+	player.connect("thrown_buddy", self, "add_falling_buddy")
+
 	floor_obj = find_node("floor")
+
 	end_zone = find_node("end_zone")
 	end_zone.connect("body_entered", self, "end_zone_activated")
 
@@ -25,10 +29,17 @@ func _ready():
 	animations = find_node("animations")
 	animations.connect("animation_finished", self, "animation_finished")
 
+	buddies = find_node("buddies_container")
+
 
 func _physics_process(delta):
 	if (!game_state.paused and floor_active):
 		floor_obj.position.y = floor_obj.position.y - (floor_speed * delta)
+
+
+func add_falling_buddy(buddy, position):
+	buddies.add_child(buddy)
+	buddy.global_position = position
 
 
 func start_floor():
