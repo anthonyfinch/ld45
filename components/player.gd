@@ -17,6 +17,8 @@ var shake_time = 0
 var buddies
 var collision_shape
 var camera
+var jump_sound
+var pickup_sound
 
 var falling_buddy_scene = preload("res://components/falling_buddy.tscn")
 
@@ -28,12 +30,15 @@ func _ready():
 	buddies = find_node("buddies")
 	collision_shape = find_node("collision_shape")
 	camera = find_node("camera")
+	jump_sound = find_node("jump")
+	pickup_sound = find_node("buddy_pickup")
 
 
 func _input(event):
 	if !game_state.paused:
 		if event.is_action_pressed("jump"):
 			if is_on_floor():
+				jump_sound.play()
 				y_vel = jump_speed
 
 		if event.is_action_pressed("throw"):
@@ -97,6 +102,7 @@ func buddies_count():
 
 
 func add_buddy(sprite):
+	pickup_sound.play()
 	buddies.add_child(sprite)
 	sprite.position.x = 0
 	sprite.position.y = -1 * buddies_count() * height

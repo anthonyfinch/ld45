@@ -11,10 +11,17 @@ var floor_timer
 var floor_active = false
 var animations
 var buddies
+var floor_sound
+var win_sound
+var die_sound
 
 var buddy_scene = preload("res://components/buddy.tscn")
 
 func _ready():
+	floor_sound = find_node("floor_sound")
+	win_sound = find_node("win")
+	die_sound = find_node("die")
+
 	player = find_node("player")
 	player.connect("hit_floor", self, "player_died")
 	player.connect("thrown_buddy", self, "add_falling_buddy")
@@ -54,17 +61,20 @@ func buddy_landed(buddy, position, frame_no):
 
 
 func start_floor():
+	floor_sound.play()
 	player.shake()
 	floor_active = true
 
 
 func player_died():
 	game_state.paused = true
+	die_sound.play()
 	animations.play("die")
 
 func end_zone_activated(body):
 	if (body.name == "player"):
 		game_state.paused = true
+		win_sound.play()
 		animations.play("win")
 
 
