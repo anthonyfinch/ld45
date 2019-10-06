@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://level_end.gd" type="Script" id=1]
 [ext_resource path="res://ui/edit-undo-font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/edunline.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 3 )
 
 [node name="main" type="Node2D"]
 script = ExtResource( 1 )
@@ -9,11 +14,37 @@ script = ExtResource( 1 )
 [node name="CenterContainer" type="CenterContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
+grow_vertical = 0
 
-[node name="Label" type="Label" parent="CenterContainer"]
-margin_left = 287.0
-margin_top = 266.0
-margin_right = 737.0
-margin_bottom = 333.0
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 277.0
+margin_top = 209.0
+margin_right = 747.0
+margin_bottom = 390.0
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 470.0
+margin_bottom = 67.0
 custom_fonts/font = ExtResource( 2 )
 text = "END OF LEVEL"
+
+[node name="buddy_score" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_top = 71.0
+margin_right = 470.0
+margin_bottom = 105.0
+custom_fonts/font = SubResource( 1 )
+text = "Buddies rescued: 4 = 400pts"
+
+[node name="buddy_multiply" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_top = 109.0
+margin_right = 470.0
+margin_bottom = 143.0
+custom_fonts/font = SubResource( 1 )
+text = "Buddies rescued: 4 = 400pts"
+
+[node name="total" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_top = 147.0
+margin_right = 470.0
+margin_bottom = 181.0
+custom_fonts/font = SubResource( 1 )
+text = "Buddies rescued: 4 = 400pts"

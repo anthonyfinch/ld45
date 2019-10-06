@@ -1,5 +1,6 @@
 extends Node2D
 
+export var level_name = "base_level"
 export var next_level_name = "level_1"
 export var floor_speed = 60
 
@@ -74,5 +75,11 @@ func animation_finished(anim):
 
 	if (anim == "win"):
 		var level_end_scene = load("res://level_end.tscn")
+		var scores = []
+		for buddy in player.buddies.get_children():
+			scores.push_back(buddy.frame)
+
+		game_state.scores[level_name] = scores
+		game_state.last_level = level_name
 		game_state.next_level_name = next_level_name
 		get_tree().change_scene_to(level_end_scene)

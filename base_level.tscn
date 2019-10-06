@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://level.gd" type="Script" id=1]
 [ext_resource path="res://components/tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://components/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://components/enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://components/buddy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/end-zone-border.png" type="Texture" id=4]
+[ext_resource path="res://components/enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://components/buddy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://components/arrow.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 300, 50 )
+extents = Vector2( 176, 16 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "die"
@@ -61,7 +63,7 @@ format = 1
 tile_data = PoolIntArray( 1900555, 1, 0, 1900556, 1, 0, 1900557, 1, 0, 1900558, 1, 0, 1900559, 1, 0, 1900560, 1, 0, 1900561, 1, 0, 1900562, 1, 0, 1900563, 1, 0, 1900564, 1, 0, 1900565, 1, 0 )
 
 [node name="end_zone" type="Area2D" parent="."]
-position = Vector2( 580.169, 177.567 )
+position = Vector2( 527.817, 176.177 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -69,25 +71,30 @@ __meta__ = {
 [node name="end_zone_shape" type="CollisionShape2D" parent="end_zone"]
 shape = SubResource( 1 )
 
+[node name="sprite" type="Sprite" parent="end_zone"]
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 352, 64 )
+
 [node name="enemies" type="Node2D" parent="."]
 
-[node name="enemy" parent="enemies" instance=ExtResource( 4 )]
+[node name="enemy" parent="enemies" instance=ExtResource( 5 )]
 position = Vector2( 368, 304 )
 
 [node name="buddies_container" type="Node2D" parent="."]
 
-[node name="buddy1" parent="buddies_container" instance=ExtResource( 5 )]
+[node name="buddy1" parent="buddies_container" instance=ExtResource( 6 )]
 position = Vector2( 688, 400 )
 
-[node name="buddy2" parent="buddies_container" instance=ExtResource( 5 )]
+[node name="buddy2" parent="buddies_container" instance=ExtResource( 6 )]
 position = Vector2( 655.069, 400 )
 frame = 2
 
-[node name="buddy3" parent="buddies_container" instance=ExtResource( 5 )]
+[node name="buddy3" parent="buddies_container" instance=ExtResource( 6 )]
 position = Vector2( 655.069, 400 )
 frame = 3
 
-[node name="buddy4" parent="buddies_container" instance=ExtResource( 5 )]
+[node name="buddy4" parent="buddies_container" instance=ExtResource( 6 )]
 position = Vector2( 655.069, 400 )
 frame = 4
 
@@ -99,3 +106,6 @@ autostart = true
 [node name="animations" type="AnimationPlayer" parent="."]
 anims/die = SubResource( 2 )
 anims/win = SubResource( 3 )
+
+[node name="arrow" parent="." instance=ExtResource( 7 )]
+position = Vector2( 311.928, 540.363 )
